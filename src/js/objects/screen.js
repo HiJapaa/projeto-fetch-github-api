@@ -2,7 +2,7 @@ const screen = {
     userProfile: document.querySelector('.profile-data'),
     renderUser(user) {
         this.userProfile.innerHTML = `<div class="info">
-                                        <img src="${user.avatarUrl}" alt="Foto de perfil do usuário" />
+                                        <img src="${user.avatarUrl}" alt="Foto de perfil do ${user.name ?? 'usuário'}" />
                                         <div class="data">
                                             <h1>${user.name ?? 'Não possui nome cadastrado 🤷‍♂️'}</h1>
                                             <p>${user.bio ?? 'Não possui bio cadastrada 😒'}</p><br>
@@ -11,7 +11,29 @@ const screen = {
                                       </div>`
 
         let repositoriesItens = ''
-        user.repositories.forEach(repo => repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`)
+        user.repositories.forEach(repo => {
+            if (repo.stargazers_count <= 1) {
+                repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">
+                                            ${repo.name}
+                                            <div class="repoInfo">
+                                                <span>🍴 ${repo.forks_count}</span>
+                                                <span>🌟 ${repo.stargazers_count}</span>
+                                                <span>👀 ${repo.watchers_count}</span>
+                                                <span>👨🏻‍💻 ${repo.language ?? ''}</span>
+                                            </div>
+                                        </a></li>`}
+            else {
+                repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">
+                                            ${repo.name}
+                                            <div class="repoInfo">
+                                                <span>🍴 ${repo.forks_count}</span>
+                                                <span>✨ ${repo.stargazers_count}</span>
+                                                <span>👀 ${repo.watchers_count}</span>
+                                                <span>👨🏻‍💻 ${repo.language ?? ''}</span>
+                                            </div>
+                                        </a></li>`
+            }
+        })
 
         if (user.repositories.length > 0) {
             this.userProfile.innerHTML += `<div class="repositories section">
@@ -22,7 +44,6 @@ const screen = {
 
         let eventsItens = ''
         user.events.forEach((event) => {
-
             if (event.type == "CreateEvent" || event.type == "PushEvent") {
                 if (event.payload.commits == undefined) {
                     eventsItens += `<li><span class="repoEvent">${event.repo.name}</span> - <span class="eventUpdate">Não possui Commit</span></li>`

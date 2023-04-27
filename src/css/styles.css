@@ -121,7 +121,7 @@ main {
   line-height: 23px;
 }
 
-.bold {
+.container .profile-data .info .bold {
   font-weight: 700;
 }
 
@@ -156,24 +156,35 @@ main {
   display: none;
 }
 
+.container .profile-data .repositories .repoInfo {
+  margin-top: 10px;
+}
+
+.container .profile-data .repositories .repoInfo span {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: rgb(121, 24, 121);
+  color: #fff;
+}
+
 /* EVENTS */
 
-.events {
+.container .profile-data .events {
   background-color: lightgray;
   border-radius: 15px;
   padding: 20px;
   font-size: 15px;
 }
 
-.events h2, .events ul li {
-  margin-bottom: 5px;
+.container .profile-data .events h2, .container .profile-data .events ul li {
+  margin-bottom: 10px;
 }
 
-.repoEvent {
+.container .profile-data .events .repoEvent {
   font-weight: 700;
 }
 
-.eventUpdate {
+.container .profile-data .events .eventUpdate {
   font-weight: 100;
 }
 
@@ -216,5 +227,20 @@ main {
   {
     width: 100%;
     padding: 0;
+  }
+
+  .container .profile-data .events ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+  }
+
+  .container .profile-data .events ul li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .container .profile-data .events ul li span {
+    display: block;
   }
 }
