@@ -243,4 +243,9 @@ main {
   .container .profile-data .events ul li span {
     display: block;
   }
+
+  .container .profile-data .repositories .repoInfo span {
+    display: inline-block;
+    margin: 3px;
+  }
 }
