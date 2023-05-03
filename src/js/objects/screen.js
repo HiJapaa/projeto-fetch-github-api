@@ -21,8 +21,9 @@ const screen = {
                                                 <span>👀 ${repo.watchers_count}</span>
                                                 <span>👨🏻‍💻 ${repo.language ?? ''}</span>
                                             </div>
-                                        </a></li>`}
-            else {
+                                          </a>
+                                      </li>`
+            } else {
                 repositoriesItens += `<li><a href="${repo.html_url}" target="_blank">
                                             ${repo.name}
                                             <div class="repoInfo">
@@ -31,7 +32,8 @@ const screen = {
                                                 <span>👀 ${repo.watchers_count}</span>
                                                 <span>👨🏻‍💻 ${repo.language ?? ''}</span>
                                             </div>
-                                        </a></li>`
+                                          </a>
+                                      </li>`
             }
         })
 
@@ -39,29 +41,24 @@ const screen = {
             this.userProfile.innerHTML += `<div class="repositories section">
                                                 <h2>Repositórios</h2>
                                                 <ul>${repositoriesItens}</ul>
-                                            </div>`
+                                           </div>`
         }
 
         let eventsItens = ''
-        user.events.forEach((event) => {
-            if (event.type == "CreateEvent" || event.type == "PushEvent") {
-                if (event.payload.commits == undefined) {
-                    eventsItens += `<li><span class="repoEvent">${event.repo.name}</span> - <span class="eventUpdate">Não possui Commit</span></li>`
-                }
-                else {
-                    eventsItens += `<li><span class="repoEvent">${event.repo.name}</span> - <span class="eventUpdate">${event.payload.commits[0].message}</span></li>`
-                }
+        user.events.forEach((element) => {
+            if (element.type == "CreateEvent") {
+                eventsItens += `<li><span class="repoEvent">${element.repo.name}</span> - <span class="eventUpdate">Criado um ${element.payload.ref_type}</span></li>`
+            } else {
+                eventsItens += `<li><span class="repoEvent">${element.repo.name}</span> - <span class="eventUpdate">${element.payload.commits[0].message}</span></li>`
             }
         })
-
 
         if (user.events.length > 0) {
             this.userProfile.innerHTML += `<div class='events section'>
                                                 <h2>Eventos</h2>
                                                 <ul>${eventsItens}</ul>
-                                            </div>`
+                                           </div>`
         }
-
     },
     renderNotFound() {
         this.userProfile.innerHTML = "<h3>Usuário não encontrado</h3>"
